@@ -52,10 +52,20 @@ docker run -p 8080:8080 spam-detector:local
 # then open http://localhost:8080
 ```
 
-2) Deploy to Heroku via GitHub Actions
+2) Deploy to Railway (Recommended - Fastest)
 
-- The workflow `.github/workflows/deploy-heroku.yml` deploys to Heroku on pushes to `main`.
-- Set these repository secrets: `HEROKU_API_KEY`, `HEROKU_APP_NAME`, `HEROKU_EMAIL`.
+1. Go to [railway.app](https://railway.app)
+2. Click "New Project" → "Deploy from GitHub repo"
+3. Select this repository (`spam_mail_detector`)
+4. Railway auto-detects the Dockerfile and deploys automatically
+5. Your app will be live at `https://<your-app>-<random>.railway.app`
+
+**Auto-deploy:** Push to `main` and Railway rebuilds automatically.
+
+Alternative: Deploy Google Cloud Run / Render
+
+- **Google Cloud Run:** Connect GitHub → Cloud Run automatically pulls from GHCR and deploys (serverless, free tier: 2M requests/month)
+- **Render:** Similar to Railway, free tier available at render.com
 
 3) Checklist before making the repo public
 
@@ -63,8 +73,3 @@ docker run -p 8080:8080 spam-detector:local
 - [ ] Remove any sensitive data from `data/` or `models/` (they are gitignored).
 - [ ] Add a concise `CONTRIBUTING.md` if you expect collaborators.
 - [ ] Create GitHub repository and enable GitHub Pages or enable Actions as needed.
-- [ ] Add repository secrets for Heroku if you want automatic deploys.
-
-Optional: Render / Railway / DigitalOcean
-
-- You can also deploy the Docker image to Render or Railway; both support connecting directly to a GitHub repo or a container registry.
