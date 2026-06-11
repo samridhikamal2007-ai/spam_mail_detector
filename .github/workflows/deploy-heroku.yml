@@ -8,6 +8,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Validate Heroku secrets
+        run: |
+          if [ -z "${{ secrets.HEROKU_API_KEY }}" ] || [ -z "${{ secrets.HEROKU_EMAIL }}" ]; then
+            echo "Required Heroku secrets are missing. Set HEROKU_API_KEY and HEROKU_EMAIL in repository secrets.";
+            exit 1;
+          fi
+          if [ -z "${{ secrets.HEROKU_APP_NAME }}" ]; then
+            echo "Warning: HEROKU_APP_NAME is not set. The workflow will attempt to create an app automatically."
+          fi
       - name: Install Heroku CLI
         run: |
           curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
